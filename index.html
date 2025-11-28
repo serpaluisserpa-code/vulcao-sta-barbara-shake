@@ -2,646 +2,143 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <title>Vulcão de Santa Barbara Shake</title>
+  <title>Sobre — Vulcão de Santa Barbara Shake</title>
 
-  <!-- PWA manifest -->
-  <link rel="manifest" href="manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-
-  <!-- iOS específicos -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Vulcão de Santa Barbara Shake" />
-  <link rel="apple-touch-icon" href="icon-512.png" />
-
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
   <style>
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 0;
       background: #111;
       color: #eee;
-      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
     }
 
-    #app {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    #sidebar {
-      width: 300px;
-      background: #181818;
-      border-right: 1px solid #333;
-      padding: 10px;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
-
-    #sidebar h1 {
-      font-size: 16px;
-      margin: 0 0 10px 0;
+    h1 {
       text-align: center;
+      margin-top: 10px;
+      font-size: 26px;
+      font-weight: 600;
     }
 
-    #sidebar small {
+    h2 {
+      margin-top: 35px;
+      color: #ccc;
+      font-size: 20px;
+      border-left: 3px solid #666;
+      padding-left: 10px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    .logo {
       display: block;
-      margin-bottom: 4px;
-      color: #aaa;
-      text-align: center;
+      margin: 15px auto;
+      height: 70px;
+      opacity: 0.95;
     }
 
-    #ultima-atualizacao {
-      margin-bottom: 10px;
-      text-align: center;
-      font-size: 11px;
-      color: #bbb;
+    a {
+      color: #66aaff;
+      text-decoration: none;
     }
 
-    #lista-sismos {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 10px;
+      border-top: 1px solid #333;
+      color: #888;
       font-size: 13px;
     }
 
-    #lista-sismos li {
-      padding: 6px 4px;
-      border-bottom: 1px solid #333;
-      cursor: default;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #lista-sismos li span.linha1 {
-      font-weight: 500;
-    }
-
-    #lista-sismos li span.linha2 {
-      font-size: 11px;
-      color: #aaa;
-    }
-
-    #lista-sismos li:hover {
-      background: #252525;
-    }
-
-    #lista-sismos li.active {
-      background: #2f3b22;
-      font-weight: 700;
-    }
-
-    #grafico-container {
-      flex: 1;
-      background: #000;
-      position: relative;
-    }
-
-    #grafico {
-      width: 100%;
-      height: 100%;
-    }
-
-    #footer {
-      font-size: 11px;
-      color: #888;
-      margin-top: 8px;
+    .back-link {
       text-align: center;
+      margin-top: 20px;
     }
 
-    #marca-agua {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      color: rgba(255,255,255,0.35);
-      font-size: 11px;
-      pointer-events: none;
-      z-index: 10;
-      font-style: italic;
+    .back-link a {
+      color: #00b7ff;
+      font-size: 15px;
     }
   </style>
 </head>
+
 <body>
-<div id="app">
+  <div class="container">
 
-    <div id="sidebar-content">
-      
-    <!-- LOGO IPMA -->
-<div style="text-align:center; margin-bottom:10px;">
-  <img src="ipma-logo.png" alt="IPMA" style="height:40px; opacity:0.9;">
-  <div style="font-size:11px; color:#bbb; margin-top:4px;">
-    Dados sísmicos fornecidos pela Rede Sísmica Nacional – IPMA.pt
-  </div>
-</div>
-<!-- LOGO DA APLICAÇÃO -->
-<div style="text-align:center; margin-bottom:10px;">
-  <img src="app-logo.png" alt="App Logo" style="height:70px; opacity:0.95;">
-</div>
+    <h1>Sobre a Aplicação</h1>
 
-<h1>Sismos – Serra de Santa Bárbara</h1>
-<small>Últimos 30 dias • Raio 30 km • 3D local</small>
-<div id="ultima-atualizacao">Atualização: —</div>
+    <img src="app-logo.png" alt="App Logo" class="logo" />
 
-    <ul id="lista-sismos">
-      <li>Carregando dados do IPMA…</li>
-    </ul>
+    <p>
+      <strong>Vulcão de Santa Barbara Shake</strong> é uma aplicação web dedicada à visualização tridimensional
+      da atividade sísmica recente na região da Serra de Santa Bárbara, Ilha Terceira — Açores.
+    </p>
 
-    <div id="footer">
-      Fonte dos dados: <strong>IPMA.pt</strong><br/>
-      Sistema local: X/Y (km), Z (km – negativo abaixo da superfície)
+    <p>
+      Esta ferramenta permite explorar, em 3D, a profundidade, magnitude e evolução temporal dos sismos 
+      registados pelo <strong>IPMA – Instituto Português do Mar e da Atmosfera</strong>, no seu período oficial de
+      disponibilização (últimos 30 dias).
+    </p>
+
+    <h2>Origem dos Dados</h2>
+
+    <img src="ipma-logo.png" alt="IPMA Logo" class="logo" />
+
+    <p>
+      Todos os eventos sísmicos são recolhidos a partir da API pública do 
+      <strong>IPMA.pt</strong> (Rede Sísmica Nacional / Açores).  
+      A aplicação não cria, altera ou interpreta dados sísmicos — limita-se a apresentá-los visualmente
+      num sistema local tridimensional.
+    </p>
+
+    <h2>Objetivo da Aplicação</h2>
+    <p>
+      Tornar a informação sísmica mais acessível ao público, permitindo compreender melhor o contexto
+      geológico e vulcânico dos Açores através de uma representação espacial intuitiva.
+    </p>
+
+    <h2>Criação</h2>
+
+    <p>
+      Desenvolvido por <strong>Luís Serpa (LSerpa)</strong>, com apoio de modelos de Inteligência Artificial,
+      com carinho a partir do Faial.  
+      A aplicação não substitui informação oficial do IPMA, CIVISA ou Proteção Civil.
+    </p>
+
+    <h2>Contacto</h2>
+
+    <p>
+      Para sugestões, melhorias ou questões sobre o projeto:
+      <br>📧 <a href="mailto:ls@exemplo.pt">ls@exemplo.pt</a> (podes alterar este email)
+    </p>
+
+    <div class="back-link">
+      <a href="index.html">← Voltar à aplicação</a>
     </div>
-  </div>
 
-  <div id="grafico-container">
+    <div class="footer">
+      © 2025 Luís Serpa • Dados sísmicos: IPMA.pt • Criado por LSerpa melhorado com IA
     </div>
-    <div id="grafico"></div>
+
   </div>
-</div>
-   <div id="footer">
-  © 2025 Luís Serpa • Dados sísmicos: <strong>IPMA.pt</strong> • Criado por LSerpa melhorado com IA
-</div>
-<script>
-  // ---------------------------------------------
-  // CONFIGURAÇÃO
-  // ---------------------------------------------
-  const CENTER_LAT = 38.72972;
-  const CENTER_LON = -27.31972;
-  const RADIUS_KM  = 30;
-  const PEAK_ALT_KM = 1.1;
-  const API_URL = "https://api.ipma.pt/open-data/observation/seismic/3.json";
-
-  // ---------------------------------------------
-  // Funções auxiliares
-  // ---------------------------------------------
-  function isSantaBarbara(region) {
-    if (!region) return false;
-    const r = region.toLowerCase();
-    const palavras = [
-      "serra sta. bárbara",
-      "serra santa bárbara",
-      "serra de santa bárbara",
-      "sta. bárbara",
-      "sta bárbara",
-      "santa bárbara",
-      "santa barbara",
-      "sta barbara",
-      "s. bárbara",
-      "barbara"
-    ];
-    return palavras.some(p => r.includes(p));
-  }
-
-  function geoToXY(lat, lon) {
-    const R = 6371;
-    const dlat = (lat - CENTER_LAT) * Math.PI / 180;
-    const dlon = (lon - CENTER_LON) * Math.PI / 180;
-    const x = dlon * Math.cos(CENTER_LAT * Math.PI / 180) * R;
-    const y = dlat * R;
-    return { x, y };
-  }
-
-  function distanciaKm(lat, lon) {
-    const { x, y } = geoToXY(lat, lon);
-    return Math.sqrt(x*x + y*y);
-  }
-
-  function idadeNormalizada(date, minDate, maxDate) {
-    const t  = date.getTime();
-    const t0 = minDate.getTime();
-    const t1 = maxDate.getTime();
-    if (t1 === t0) return 0;
-    return (t - t0) / (t1 - t0);
-  }
-
-  function corPorIdade(a) {
-    const b = 1 - a;  // recente = verde
-
-    let r, g, bl;
-    if (b < 0.5) {
-      const frac = b / 0.5;
-      r = Math.round(frac * 255);
-      g = 255;
-      bl = 0;
-    } else {
-      const frac = (b - 0.5) / 0.5;
-      r = 255;
-      g = Math.round(255 - frac * 255);
-      bl = 0;
-    }
-    return `rgb(${r},${g},${bl})`;
-  }
-
-  // ---------------------------------------------
-  // Lista de sismos
-  // ---------------------------------------------
-  function construirLista(quakes) {
-    const ul = document.getElementById("lista-sismos");
-    ul.innerHTML = "";
-
-    if (quakes.length === 0) {
-      const li = document.createElement("li");
-      li.textContent = "Não há sismos na Serra de Santa Bárbara nos últimos 30 dias.";
-      ul.appendChild(li);
-      return;
-    }
-
-    quakes.forEach((q) => {
-      const li = document.createElement("li");
-      li.dataset.index = q.listIndex;
-
-      const linha1 = document.createElement("span");
-      linha1.className = "linha1";
-      linha1.textContent =
-        `${q.timeStr}  ML ${q.mag.toFixed(1)}  Prof ${q.depth_km.toFixed(1)} km`;
-
-      const linha2 = document.createElement("span");
-      linha2.className = "linha2";
-      linha2.textContent =
-        `${q.region}  (dist ≈ ${q.dist_km.toFixed(1)} km)`;
-
-      li.appendChild(linha1);
-      li.appendChild(linha2);
-
-      ul.appendChild(li);
-    });
-  }
-
-  function destacarLista(listIndex) {
-    const ul = document.getElementById("lista-sismos");
-    [...ul.children].forEach(li => li.classList.remove("active"));
-    const alvo = ul.querySelector(`li[data-index="${listIndex}"]`);
-    if (alvo) alvo.classList.add("active");
-  }
-
-  function removerDestaqueLista() {
-    const ul = document.getElementById("lista-sismos");
-    [...ul.children].forEach(li => li.classList.remove("active"));
-  }
-
-  // ---------------------------------------------
-  // Gráfico 3D + animação diária
-  // ---------------------------------------------
-  function desenharGrafico(quakes) {
-    const maxRange = RADIUS_KM * 1.8;
-    const zMin = -15;
-    const zMax = PEAK_ALT_KM + 0.5;
-
-    // Plano Z=0
-    const grid = [-maxRange, maxRange];
-    const Xg = [[grid[0], grid[1]], [grid[0], grid[1]]];
-    const Yg = [[grid[0], grid[0]], [grid[1], grid[1]]];
-    const Zg = [[0,0],[0,0]];
-
-    const planoSurface = {
-      type: "surface",
-      x: Xg,
-      y: Yg,
-      z: Zg,
-      showscale: false,
-      opacity: 0.18,
-      colorscale: [[0,"lightblue"],[1,"lightblue"]],
-      name: "Superfície (Z=0)",
-      hoverinfo: "skip"
-    };
-
-    // Cone do vulcão
-    const coneRadius = 6.5;
-    const nz = 20, nt = 40;
-    const coneX = [], coneY = [], coneZ = [];
-
-    for (let i = 0; i < nz; i++) {
-      const z = (i / (nz - 1)) * PEAK_ALT_KM;
-      const r = coneRadius * (1 - z / PEAK_ALT_KM);
-      const rowX = [], rowY = [], rowZ = [];
-      for (let j = 0; j < nt; j++) {
-        const theta = (j / (nt - 1)) * 2 * Math.PI;
-        rowX.push(r * Math.cos(theta));
-        rowY.push(r * Math.sin(theta));
-        rowZ.push(z);
-      }
-      coneX.push(rowX);
-      coneY.push(rowY);
-      coneZ.push(rowZ);
-    }
-
-    const coneSurface = {
-      type: "surface",
-      x: coneX,
-      y: coneY,
-      z: coneZ,
-      showscale: false,
-      opacity: 0.15,
-      colorscale: [[0,"#aaaaaa"],[1,"#ffffff"]],
-      name: "Cone Vulcão",
-      hoverinfo: "skip"
-    };
-
-    // Ponto do pico
-    const pico = {
-      type: "scatter3d",
-      mode: "markers+text",
-      x: [0],
-      y: [0],
-      z: [PEAK_ALT_KM],
-      marker: { size: 10, color: "red" },
-      text: ["Pico Sta. Bárbara (+1.1 km)"],
-      textposition: "top center",
-      name: "Pico"
-    };
-
-    // Rosa-dos-ventos (N, S, E, W)
-    const rCompass = maxRange * 0.5;
-
-    const rosaLinhas = {
-      type: "scatter3d",
-      mode: "lines",
-      x: [0, 0,  null,  -rCompass, rCompass],
-      y: [-rCompass, rCompass,  null, 0, 0],
-      z: [zMin+0.2, zMin+0.2,  null, zMin+0.2, zMin+0.2],
-      line: { width: 4, color: "#ffffff" },
-      hoverinfo: "skip",
-      name: "Rosa"
-    };
-
-    const rosaTextos = {
-      type: "scatter3d",
-      mode: "text",
-      x: [0,  0,         rCompass,   -rCompass],
-      y: [rCompass, -rCompass, 0,         0],
-      z: [zMin+0.5, zMin+0.5,  zMin+0.5, zMin+0.5],
-      text: ["N", "S", "E", "W"],
-      textfont: { size: 16, color: "white" },
-      textposition: "middle center",
-      hoverinfo: "skip",
-      name: "RosaText"
-    };
-
-    function makeSismosTrace(subset) {
-      return {
-        type: "scatter3d",
-        mode: "markers",
-        x: subset.map(q => q.x),
-        y: subset.map(q => q.y),
-        z: subset.map(q => -q.depth_km),
-        marker: {
-          size: subset.map(q => Math.max(6, Math.min(30, (q.mag + 1) * 4))),
-          color: subset.map(q => q.color),
-          opacity: 0.95
-        },
-        text: subset.map(
-          q => `${q.timeStr} • ML ${q.mag.toFixed(1)} • Prof ${q.depth_km.toFixed(1)} km`
-        ),
-        customdata: subset.map(q => q.listIndex),
-        hovertemplate: "%{text}<extra></extra>",
-        name: "Sismos"
-      };
-    }
-
-    let sismosTrace = null;
-    let frames = [];
-    let sliders = [];
-    let updatemenus = [];
-
-    if (quakes.length > 0) {
-      const asc = [...quakes].sort((a,b) => a.time - b.time);
-      const t0 = new Date(asc[0].time);
-      t0.setHours(0,0,0,0);
-      const tEnd = new Date(asc[asc.length-1].time);
-      tEnd.setHours(23,59,59,999);
-
-      const diaMs = 24 * 3600 * 1000;
-      const numDias = Math.floor((tEnd - t0) / diaMs) + 1;
-
-      const frameList = [];
-      for (let i = 0; i < numDias; i++) {
-        const cutoff = new Date(t0.getTime() + (i+1)*diaMs - 1);
-        const subset = asc.filter(q => q.time <= cutoff);
-        if (subset.length === 0) continue;
-        const label = cutoff.toISOString().slice(0,10);
-        frameList.push({ name: label, subset });
-      }
-
-      frames = frameList.map(fr => ({
-        name: fr.name,
-        data: [ makeSismosTrace(fr.subset) ],
-        traces: [4]  // atua sobre trace 4 (sismos)
-      }));
-
-      const inicialSubset =
-        frameList.length ? frameList[frameList.length-1].subset : asc;
-      sismosTrace = makeSismosTrace(inicialSubset);
-
-      sliders = [{
-        active: frameList.length - 1,
-        x: 0.1,
-        y: 0.03,
-        len: 0.8,
-        pad: {t: 30, b: 0},
-        currentvalue: {
-          visible: true,
-          prefix: "Dia: ",
-          xanchor: "right",
-          font: { color: "#eee", size: 12 }
-        },
-        steps: frameList.map(fr => ({
-          label: fr.name,
-          method: "animate",
-          args: [[fr.name], {
-            mode: "immediate",
-            frame: {duration: 400, redraw: true},
-            transition: {duration: 0}
-          }]
-        }))
-      }];
-
-      updatemenus = [{
-        type: "buttons",
-        showactive: false,
-        x: 0.05,
-        y: 0.03,
-        xanchor: "right",
-        yanchor: "top",
-        direction: "left",
-        pad: {t: 30, r: 10},
-        buttons: [
-          {
-            label: "▶ Play",
-            method: "animate",
-            args: [null, {
-              fromcurrent: true,
-              frame: {duration: 500, redraw: true},
-              transition: {duration: 0}
-            }]
-          },
-          {
-            label: "⏸ Pause",
-            method: "animate",
-            args: [[null], {
-              mode: "immediate",
-              frame: {duration: 0, redraw: false},
-              transition: {duration: 0}
-            }]
-          }
-        ]
-      }];
-    }
-
-    const data = sismosTrace
-      ? [planoSurface, coneSurface, rosaLinhas, rosaTextos, sismosTrace, pico]
-      : [planoSurface, coneSurface, rosaLinhas, rosaTextos, pico];
-
-    const layout = {
-      title: {
-        text: "Sismos 3D – Serra de Santa Bárbara (cores por antiguidade)",
-        font: { color: "#eee", size: 16 }
-      },
-      paper_bgcolor: "#000",
-      plot_bgcolor: "#000",
-      scene: {
-        xaxis: {
-          title: "X (km)",
-          range: [-maxRange, maxRange],
-          backgroundcolor: "#000",
-          gridcolor: "#333",
-          zerolinecolor: "#555"
-        },
-        yaxis: {
-          title: "Y (km)",
-          range: [-maxRange, maxRange],
-          backgroundcolor: "#000",
-          gridcolor: "#333",
-          zerolinecolor: "#555"
-        },
-        zaxis: {
-          title: "Alt / Prof (km)",
-          range: [zMin, zMax],
-          backgroundcolor: "#000",
-          gridcolor: "#333",
-          zerolinecolor: "#555"
-        },
-        aspectmode: "manual",
-        aspectratio: { x: 1.6, y: 1.6, z: 0.8 }
-      },
-      margin: { l: 0, r: 0, t: 40, b: 0 },
-      showlegend: false,
-      sliders: sliders,
-      updatemenus: updatemenus
-    };
-
-    Plotly.newPlot("grafico", data, layout).then(gd => {
-      if (frames.length > 0) {
-        Plotly.addFrames(gd, frames);
-      }
-
-      gd.on("plotly_hover", evt => {
-        const p = evt.points[0];
-        if (p.curveNumber === 4 && p.customdata !== undefined) {
-          destacarLista(p.customdata);
-        }
-      });
-
-      gd.on("plotly_unhover", () => {
-        removerDestaqueLista();
-      });
-    });
-  }
-
-  // ---------------------------------------------
-  // Carregar dados do IPMA
-  // ---------------------------------------------
-  async function carregar() {
-    try {
-      const resp = await fetch(API_URL);
-      const json = await resp.json();
-      const dados = json.data || [];
-
-      const agora = new Date();
-      const limite = new Date(agora.getTime() - 30 * 24 * 3600 * 1000);
-      const eventos = [];
-      let maisRecente = null;
-
-      for (const e of dados) {
-        try {
-          const t = new Date(e.time);
-          if (isNaN(t.getTime()) || t < limite) continue;
-
-          const lat = parseFloat(e.lat);
-          const lon = parseFloat(e.lon);
-          const mag = parseFloat(e.magnitud);
-          const depth_km = parseFloat(e.depth);
-          const region = e.obsRegion || "";
-
-          if (!isSantaBarbara(region)) continue;
-
-          const dist_km = distanciaKm(lat, lon);
-          if (dist_km > RADIUS_KM) continue;
-
-          const { x, y } = geoToXY(lat, lon);
-
-          eventos.push({
-            time: t,
-            timeStr: t.toISOString().replace("T"," ").slice(0,16),
-            lat, lon, mag, depth_km, region,
-            dist_km, x, y
-          });
-
-          if (!maisRecente || t > maisRecente) maisRecente = t;
-
-        } catch {}
-      }
-
-      if (eventos.length === 0) {
-        construirLista([]);
-        desenharGrafico([]);
-        document.getElementById("ultima-atualizacao").textContent =
-          "Atualização: sem dados (IPMA)";
-        return;
-      }
-
-      eventos.sort((a,b) => a.time - b.time);
-      const tMin = eventos[0].time;
-      const tMax = eventos[eventos.length-1].time;
-      eventos.forEach(ev => {
-        ev.color = corPorIdade(idadeNormalizada(ev.time, tMin, tMax));
-      });
-
-      eventos.sort((a,b) => b.time - a.time);
-      eventos.forEach((ev, idx) => { ev.listIndex = idx; });
-
-      const upd = document.getElementById("ultima-atualizacao");
-      upd.textContent = maisRecente
-        ? `Atualização: ${maisRecente.toISOString().replace("T"," ").slice(0,16)} UTC`
-        : "Atualização: sem dados";
-
-      construirLista(eventos);
-      desenharGrafico(eventos);
-
-    } catch (err) {
-      console.error(err);
-      const ul = document.getElementById("lista-sismos");
-      ul.innerHTML = "";
-      const li = document.createElement("li");
-      li.textContent = "Erro ao carregar dados do IPMA.";
-      ul.appendChild(li);
-      document.getElementById("ultima-atualizacao").textContent =
-        "Atualização: erro ao contactar IPMA";
-    }
-  }
-
-  carregar();
-
-  // ---------------------------------------------
-  // Registo do Service Worker (PWA)
-  // ---------------------------------------------
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("service-worker.js").catch(err => {
-        console.warn("SW falhou:", err);
-      });
-    });
-  }
-</script>
 </body>
 </html>
