@@ -124,22 +124,23 @@
 
     /* Marca de água no canto inferior direito */
     #marca-logos {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      opacity: 0.85;
-      pointer-events: none;
-      z-index: 20;
-    }
+  position: absolute;
+  right: 20px;
+  bottom: 65px; /* afastar do footer */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.90;
+  pointer-events: none; /* não interfere com o hover */
+  z-index: 50;
+}
 
-    .marca-logo {
-      height: 45px;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
-      opacity: 0.92;
-    }
+.marca-logo {
+  height: 48px;     /* tamanho consistente */
+  width: auto;      /* mantém proporção real */
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.35));
+  opacity: 0.95;
+} 
 
   </style>
 </head>
