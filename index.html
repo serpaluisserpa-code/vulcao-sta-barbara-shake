@@ -23,6 +23,24 @@
       background: #111;
       color: #eee;
       overflow: hidden;
+      
+      /* Marca de água no canto inferior direito */
+#marca-logos {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.85;
+  pointer-events: none; /* Não interfere com o hover */
+  z-index: 20;
+}
+
+.marca-logo {
+  height: 45px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+  opacity: 0.92;
     }
 
     #app {
@@ -166,6 +184,14 @@
 
   <!-- GRÁFICO -->
   <div id="grafico-container">
+  <!-- MARCA DE ÁGUA COM DOIS LOGOS -->
+  <div id="marca-logos">
+    <img src="ivost-portugal.png" class="marca-logo">
+    <img src="VOSTAZ-logo.pn" class="marca-logo">
+  </div>
+
+  <div id="grafico"></div>
+</div> 
     <div id="grafico"></div>
   </div>
 
