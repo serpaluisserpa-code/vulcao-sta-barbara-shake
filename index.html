@@ -174,11 +174,8 @@
 </div>
 
 <script>
-/* ============================================================
-   FUNÇÕES NOVAS PARA INTERAÇÃO — PEDIDO DO LUÍS
-   ============================================================ */
 
-// NOVO — Variável global para guardar o gráfico Plotly
+  // NOVO — Variável global para guardar o gráfico Plotly
 let graficoPlotly = null;
 
 // NOVO — Centrar o gráfico num sismo clicado na lista
@@ -234,8 +231,10 @@ function piscarMaisRecente(quakes) {
   setTimeout(() => clearInterval(intervalo), 5000);
 }
 
+
+
 /* ============================================================
-  (DESENHAR GRÁFICO)
+   A PARTIR DAQUI VOLTA O TEU CÓDIGO ORIGINAL (DESENHAR GRÁFICO)
    ============================================================ */
 
   const CENTER_LAT = 38.72972;
@@ -291,11 +290,8 @@ function piscarMaisRecente(quakes) {
     }
     return `rgb(${r},${g},${bl})`;
   }
-/* ============================================================
-   ATIVAÇÃO DO CENÁRIO INTERATIVO
-   ============================================================ */
 
-async function carregar(){
+  async function carregar(){
   try{
     const resp = await fetch(API_URL);
     const json = await resp.json();
@@ -395,4 +391,3 @@ if("serviceWorker" in navigator){
       .catch(err=>console.warn("SW falhou:",err));
   });
 }
-
