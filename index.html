@@ -75,8 +75,23 @@
       flex-direction: column;
     }
 
-    #lista-sismos li:hover { background: #252525; }
-    #lista-sismos li.active { background: #2f3b22; font-weight: 700; }
+    #lista-sismos li:hover {
+      background: #252525;
+    }
+
+    #lista-sismos li.active {
+      background: #2f3b22;
+      font-weight: 700;
+    }
+
+    #lista-sismos .linha1 {
+      font-weight: 500;
+    }
+
+    #lista-sismos .linha2 {
+      font-size: 11px;
+      color: #aaa;
+    }
 
     #grafico-container {
       flex: 1;
@@ -87,6 +102,13 @@
     #grafico {
       width: 100%;
       height: 100%;
+    }
+
+    .sidebar-footer {
+      font-size: 11px;
+      color: #888;
+      margin-top: 8px;
+      text-align: center;
     }
 
     .footer-global {
@@ -103,15 +125,25 @@
       z-index: 9999;
     }
 
+    .footer-global a {
+      color: #4ea3ff;
+      text-decoration: none;
+    }
+
+    .footer-global a:hover {
+      text-decoration: underline;
+    }
+
+    /* Marca de água no canto inferior direito */
     #marca-logos {
       position: absolute;
       right: 20px;
-      bottom: 65px;
+      bottom: 65px; /* afastar do footer */
       display: flex;
       flex-direction: column;
       gap: 8px;
       opacity: 0.90;
-      pointer-events: none;
+      pointer-events: none; /* não interfere com o hover */
       z-index: 50;
     }
 
@@ -128,17 +160,20 @@
 
 <div id="app">
 
+  <!-- SIDEBAR -->
   <div id="sidebar">
 
+    <!-- LOGO IPMA -->
     <div style="text-align:center; margin-bottom:10px;">
-      <img src="ipma-logo.png" style="height:40px; opacity:0.9;">
-      <div style="font-size:11px; color:#bbb;">
+      <img src="ipma-logo.png" alt="IPMA" style="height:40px; opacity:0.9;">
+      <div style="font-size:11px; color:#bbb; margin-top:4px;">
         Dados sísmicos fornecidos pela Rede Sísmica Nacional – IPMA.pt
       </div>
     </div>
 
+    <!-- LOGO APLICAÇÃO -->
     <div style="text-align:center; margin-bottom:10px;">
-      <img src="app-logo.png" style="height:70px; opacity:0.95;">
+      <img src="app-logo.png" alt="App Logo" style="height:70px; opacity:0.95;">
     </div>
 
     <h1>Sismos – Serra de Santa Bárbara</h1>
@@ -157,92 +192,39 @@
 
   </div>
 
+  <!-- GRÁFICO + LOGOS -->
   <div id="grafico-container">
     <div id="marca-logos">
-      <img src="vost-portugal.png" class="marca-logo">
-      <img src="VOSTAZ_f.png" class="marca-logo">
+      <img src="vost-portugal.png" class="marca-logo" alt="VOST Portugal">
+      <img src="VOSTAZ_f.png" class="marca-logo" alt="VOSTAZ">
     </div>
-
     <div id="grafico"></div>
   </div>
 
 </div>
 
+<!-- FOOTER GLOBAL -->
 <div class="footer-global">
   2025, Criado por Luís Serpa e melhorado por IA. Dados IPMA.PT. • 
   <a href="about.html">Sobre</a>
 </div>
 
 <script>
-
-  // NOVO — Variável global para guardar o gráfico Plotly
-let graficoPlotly = null;
-
-// NOVO — Centrar o gráfico num sismo clicado na lista
-function focarSismoNoGrafico(index, quakes) {
-  if (!graficoPlotly) return;
-
-  const q = quakes.find(ev => ev.listIndex == index);
-  if (!q) return;
-
-  Plotly.animate(graficoPlotly, {
-    layout: {
-      scene: {
-        camera: {
-          eye: {
-            x: q.x * 0.1,
-            y: q.y * 0.1,
-            z: 1.5
-          }
-        }
-      }
-    }
-  }, {
-    transition: { duration: 700 },
-    frame: { duration: 700 }
-  });
-
-  destacarLista(index);
-}
-
-// NOVO — Fazer o ponto mais recente piscar
-function piscarMaisRecente(quakes) {
-  if (!graficoPlotly || !quakes.length) return;
-
-  const idx = quakes[0].listIndex; // já está ordenado por mais recente
-
-  let intensidade = 1;
-  let direcao = -0.15;
-
-  const intervalo = setInterval(() => {
-    intensidade += direcao;
-
-    if (intensidade <= 0.3) direcao = +0.15;
-    if (intensidade >= 1.0) direcao = -0.15;
-
-    Plotly.restyle(graficoPlotly, {
-      "marker.opacity": [[
-        ...quakes.map(q => q.listIndex === idx ? intensidade : 0.95)
-      ]]
-    }, [4]);
-
-  }, 120);
-
-  setTimeout(() => clearInterval(intervalo), 5000);
-}
-
-
-
-/* ============================================================
-   A PARTIR DAQUI VOLTA O TEU CÓDIGO ORIGINAL (DESENHAR GRÁFICO)
-   ============================================================ */
-
+  /* ============================================================
+     CONFIGURAÇÃO GLOBAL
+     ============================================================ */
   const CENTER_LAT = 38.72972;
   const CENTER_LON = -27.31972;
   const RADIUS_KM  = 30;
   const PEAK_ALT_KM = 1.1;
   const API_URL = "https://api.ipma.pt/open-data/observation/seismic/3.json";
 
+  // handler global do gráfico Plotly
+  let graficoPlotly = null;
+
+  /* ============================================================
+     FUNÇÕES AUXILIARES
+     ============================================================ */
   function isSantaBarbara(region) {
     if (!region) return false;
     const r = region.toLowerCase();
@@ -257,7 +239,7 @@ function piscarMaisRecente(quakes) {
   }
 
   function geoToXY(lat, lon) {
-    const R = 6371;
+    const R = 6371; // raio da Terra em km
     const dlat = (lat - CENTER_LAT) * Math.PI / 180;
     const dlon = (lon - CENTER_LON) * Math.PI / 180;
     const x = dlon * Math.cos(CENTER_LAT * Math.PI / 180) * R;
@@ -267,127 +249,551 @@ function piscarMaisRecente(quakes) {
 
   function distanciaKm(lat, lon) {
     const { x, y } = geoToXY(lat, lon);
-    return Math.sqrt(x*x + y*y);
+    return Math.sqrt(x * x + y * y);
   }
 
   function idadeNormalizada(date, minDate, maxDate) {
-    const t = date.getTime();
+    const t  = date.getTime();
     const t0 = minDate.getTime();
     const t1 = maxDate.getTime();
+    if (t1 === t0) return 0;
     return (t - t0) / (t1 - t0);
   }
 
   function corPorIdade(a) {
+    // a: 0 (mais antigo) → 1 (mais recente)
     const b = 1 - a;
     let r, g, bl;
     if (b < 0.5) {
       const frac = b / 0.5;
       r = Math.round(frac * 255);
-      g = 255; bl = 0;
+      g = 255;
+      bl = 0;
     } else {
       const frac = (b - 0.5) / 0.5;
-      r = 255; g = Math.round(255 - frac * 255); bl = 0;
+      r = 255;
+      g = Math.round(255 - frac * 255);
+      bl = 0;
     }
     return `rgb(${r},${g},${bl})`;
   }
 
-  async function carregar(){
-  try{
-    const resp = await fetch(API_URL);
-    const json = await resp.json();
-    const dados = json.data || [];
+  function destacarLista(index) {
+    const ul = document.getElementById("lista-sismos");
+    [...ul.children].forEach(li => li.classList.remove("active"));
+    const alvo = ul.querySelector(`li[data-index="${index}"]`);
+    if (alvo) alvo.classList.add("active");
+  }
 
-    const agora = new Date();
-    const limite = new Date(agora.getTime() - 30*24*3600*1000);
+  function removerDestaqueLista() {
+    document
+      .querySelectorAll("#lista-sismos li")
+      .forEach(li => li.classList.remove("active"));
+  }
 
-    const eventos = [];
-    let maisRecente = null;
+  /* ============================================================
+     NOVO — FOCAR SISMOS E FAZER PISCAR O MAIS RECENTE
+     ============================================================ */
 
-    for(const e of dados){
-      try{
-        const t = new Date(e.time);
-        if (isNaN(t) || t < limite) continue;
+  // Centrar o gráfico num sismo clicado na lista
+  function focarSismoNoGrafico(index, quakes) {
+    if (!graficoPlotly) return;
 
-        const lat = +e.lat, lon = +e.lon, mag = +e.magnitud, depth = +e.depth;
-        const region = e.obsRegion || "";
+    const q = quakes.find(ev => ev.listIndex == index);
+    if (!q) return;
 
-        if (!isSantaBarbara(region)) continue;
-        const dist = distanciaKm(lat, lon);
-        if (dist > RADIUS_KM) continue;
+    Plotly.animate(
+      graficoPlotly,
+      {
+        layout: {
+          scene: {
+            camera: {
+              eye: {
+                x: q.x * 0.12,
+                y: q.y * 0.12,
+                z: 1.5
+              }
+            }
+          }
+        }
+      },
+      {
+        transition: { duration: 700 },
+        frame: { duration: 700 }
+      }
+    );
 
-        const {x,y} = geoToXY(lat, lon);
+    destacarLista(index);
+  }
 
-        eventos.push({
-          time: t,
-          timeStr: t.toISOString().replace("T"," ").slice(0,16),
-          lat, lon, mag, depth_km: depth, region, dist_km: dist, x, y
-        });
+  // Fazer o sismo mais recente piscar cerca de 5s
+  function piscarMaisRecente(quakes) {
+    if (!graficoPlotly || !quakes.length) return;
 
-        if (!maisRecente || t > maisRecente) maisRecente = t;
+    // quakes[0] é o mais recente (já vem ordenado)
+    const idxMaisRecente = quakes[0].listIndex;
 
-      }catch{}
-    }
+    let intensidade = 1;
+    let direcao = -0.15;
 
-    if (!eventos.length){
-      construirLista([]);
-      desenharGrafico([]);
-      document.getElementById("ultima-atualizacao").textContent =
-        "Atualização: sem dados (IPMA)";
+    const intervalo = setInterval(() => {
+      intensidade += direcao;
+
+      if (intensidade <= 0.3) direcao = +0.15;
+      if (intensidade >= 1.0) direcao = -0.15;
+
+      const opacidades = quakes.map(q =>
+        q.listIndex === idxMaisRecente ? intensidade : 0.95
+      );
+
+      // trace 4 = sismos (ver ordem em desenharGrafico)
+      Plotly.restyle(
+        graficoPlotly,
+        { "marker.opacity": [opacidades] },
+        [4]
+      );
+    }, 120);
+
+    setTimeout(() => clearInterval(intervalo), 5000);
+  }
+
+  /* ============================================================
+     LISTA DE SISMOS
+     ============================================================ */
+  function construirLista(quakes) {
+    const ul = document.getElementById("lista-sismos");
+    ul.innerHTML = "";
+
+    if (!quakes.length) {
+      ul.innerHTML =
+        "<li>Não há sismos na Serra de Santa Bárbara nos últimos 30 dias.</li>";
       return;
     }
 
-    // Ordenação por antiguidade
-    eventos.sort((a,b)=>a.time-b.time);
-    const tMin = eventos[0].time;
-    const tMax = eventos[eventos.length-1].time;
+    quakes.forEach(q => {
+      const li = document.createElement("li");
+      li.dataset.index = q.listIndex;
 
-    eventos.forEach(ev => {
-      ev.color = corPorIdade(idadeNormalizada(ev.time, tMin, tMax));
+      li.innerHTML = `
+        <span class="linha1">
+          ${q.timeStr} • ML ${q.mag.toFixed(1)} • Prof ${q.depth_km.toFixed(1)} km
+        </span>
+        <span class="linha2">
+          ${q.region} (dist ≈ ${q.dist_km.toFixed(1)} km)
+        </span>
+      `;
+
+      // clique na linha → foca o sismo no gráfico 3D
+      li.addEventListener("click", () => {
+        focarSismoNoGrafico(q.listIndex, quakes);
+      });
+
+      ul.appendChild(li);
     });
-
-    // Ordenação: mais recentes primeiro
-    eventos.sort((a,b)=>b.time-a.time);
-    eventos.forEach((ev,i)=>ev.listIndex = i);
-
-    // Atualização info
-    document.getElementById("ultima-atualizacao").textContent =
-      `Atualização: ${maisRecente.toISOString().replace("T"," ").slice(0,16)} UTC`;
-
-    // Lista e gráfico
-    construirLista(eventos);
-    desenharGrafico(eventos);
-
-    // NOVO — Guardar handler do gráfico
-    graficoPlotly = document.getElementById("grafico");
-
-    // NOVO — Fazer o sismo mais recente piscar
-    setTimeout(() => piscarMaisRecente(eventos), 800);
-
-    // NOVO — Clique na lista para focar o sismo
-    document.querySelectorAll("#lista-sismos li").forEach(li => {
-      li.onclick = () => {
-        const idx = parseInt(li.dataset.index);
-        focarSismoNoGrafico(idx, eventos);
-      };
-    });
-
-  }catch(err){
-    console.error(err);
-    document.getElementById("lista-sismos").innerHTML =
-      "<li>Erro ao carregar dados do IPMA.</li>";
-    document.getElementById("ultima-atualizacao").textContent =
-      "Atualização: erro ao contactar IPMA";
   }
-}
 
-carregar();
+  /* ============================================================
+     GRÁFICO 3D + ANIMAÇÃO
+     ============================================================ */
+  function desenharGrafico(quakes) {
+    const maxRange = RADIUS_KM * 1.8;
+    const zMin = -15;
+    const zMax = PEAK_ALT_KM + 0.5;
 
-/* ============================================================
-   SERVICE WORKER
-   ============================================================ */
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("service-worker.js")
-      .catch(err=>console.warn("SW falhou:",err));
-  });
-}
+    // Plano Z=0
+    const grid = [-maxRange, maxRange];
+    const planoSurface = {
+      type: "surface",
+      x: [[grid[0], grid[1]], [grid[0], grid[1]]],
+      y: [[grid[0], grid[0]], [grid[1], grid[1]]],
+      z: [[0, 0], [0, 0]],
+      opacity: 0.18,
+      showscale: false,
+      colorscale: [[0, "lightblue"], [1, "lightblue"]],
+      hoverinfo: "skip",
+      name: "Superfície"
+    };
+
+    // Cone do vulcão
+    const coneRadius = 6.5;
+    const nz = 20;
+    const nt = 40;
+    const coneX = [];
+    const coneY = [];
+    const coneZ = [];
+
+    for (let i = 0; i < nz; i++) {
+      const z = (i / (nz - 1)) * PEAK_ALT_KM;
+      const r = coneRadius * (1 - z / PEAK_ALT_KM);
+      const rowX = [];
+      const rowY = [];
+      const rowZ = [];
+      for (let j = 0; j < nt; j++) {
+        const t = (j / (nt - 1)) * 2 * Math.PI;
+        rowX.push(r * Math.cos(t));
+        rowY.push(r * Math.sin(t));
+        rowZ.push(z);
+      }
+      coneX.push(rowX);
+      coneY.push(rowY);
+      coneZ.push(rowZ);
+    }
+
+    const coneSurface = {
+      type: "surface",
+      x: coneX,
+      y: coneY,
+      z: coneZ,
+      opacity: 0.15,
+      showscale: false,
+      colorscale: [[0, "#aaaaaa"], [1, "#ffffff"]],
+      hoverinfo: "skip",
+      name: "Cone Vulcão"
+    };
+
+    // Pico
+    const pico = {
+      type: "scatter3d",
+      mode: "markers+text",
+      x: [0],
+      y: [0],
+      z: [PEAK_ALT_KM],
+      marker: { size: 10, color: "red" },
+      text: ["Pico Sta. Bárbara (+1.1 km)"],
+      textposition: "top center",
+      name: "Pico Sta. Bárbara"
+    };
+
+    // Rosa dos ventos
+    const rCompass = maxRange * 0.5;
+
+    const rosaLinhas = {
+      type: "scatter3d",
+      mode: "lines",
+      x: [0, 0, null, -rCompass, rCompass],
+      y: [-rCompass, rCompass, null, 0, 0],
+      z: [zMin + 0.2, zMin + 0.2, null, zMin + 0.2, zMin + 0.2],
+      line: { width: 4, color: "white" },
+      hoverinfo: "skip",
+      name: "Rosa dos Ventos"
+    };
+
+    const rosaTextos = {
+      type: "scatter3d",
+      mode: "text",
+      x: [0, 0, rCompass, -rCompass],
+      y: [rCompass, -rCompass, 0, 0],
+      z: [zMin + 0.5, zMin + 0.5, zMin + 0.5, zMin + 0.5],
+      text: ["N", "S", "E", "W"],
+      textfont: { size: 16, color: "white" },
+      hoverinfo: "skip",
+      name: "NSEW"
+    };
+
+    // Trace de sismos
+    function makeSismosTrace(subset) {
+      return {
+        type: "scatter3d",
+        mode: "markers",
+        x: subset.map(q => q.x),
+        y: subset.map(q => q.y),
+        z: subset.map(q => -q.depth_km),
+        marker: {
+          size: subset.map(q => Math.max(6, Math.min(30, (q.mag + 1) * 4))),
+          color: subset.map(q => q.color),
+          opacity: 0.95
+        },
+        text: subset.map(
+          q =>
+            `${q.timeStr} • ML ${q.mag.toFixed(1)} • Prof ${q.depth_km.toFixed(
+              1
+            )} km`
+        ),
+        customdata: subset.map(q => q.listIndex),
+        hovertemplate: "%{text}<extra></extra>",
+        name: "Sismos"
+      };
+    }
+
+    let sismosTrace = null;
+    let frames = [];
+    let sliders = [];
+    let updatemenus = [];
+
+    if (quakes.length) {
+      // cópia ordenada cronologicamente crescente
+      const asc = [...quakes].sort((a, b) => a.time - b.time);
+      const t0 = new Date(asc[0].time);
+      t0.setHours(0, 0, 0, 0);
+      const tEnd = new Date(asc[asc.length - 1].time);
+      tEnd.setHours(23, 59, 59, 999);
+      const diaMs = 24 * 3600 * 1000;
+
+      const frameList = [];
+      const numDias = Math.floor((tEnd - t0) / diaMs) + 1;
+
+      for (let i = 0; i < numDias; i++) {
+        const cutoff = new Date(t0.getTime() + (i + 1) * diaMs - 1);
+        const subset = asc.filter(q => q.time <= cutoff);
+        if (!subset.length) continue;
+        const label = cutoff.toISOString().slice(0, 10);
+        frameList.push({ name: label, subset });
+      }
+
+      frames = frameList.map(fr => ({
+        name: fr.name,
+        data: [makeSismosTrace(fr.subset)],
+        traces: [4] // sismos
+      }));
+
+      const inicial = frameList.length
+        ? frameList[frameList.length - 1].subset
+        : asc;
+
+      sismosTrace = makeSismosTrace(inicial);
+
+      sliders = [
+        {
+          active: frameList.length - 1,
+          x: 0.1,
+          y: 0.03,
+          len: 0.8,
+          pad: { t: 30 },
+          currentvalue: {
+            visible: true,
+            prefix: "Dia: ",
+            font: { color: "#eee", size: 12 }
+          },
+          steps: frameList.map(fr => ({
+            label: fr.name,
+            method: "animate",
+            args: [
+              [fr.name],
+              {
+                frame: { duration: 400, redraw: true },
+                transition: { duration: 0 },
+                mode: "immediate"
+              }
+            ]
+          }))
+        }
+      ];
+
+      updatemenus = [
+        {
+          type: "buttons",
+          showactive: false,
+          x: 0.05,
+          y: 0.03,
+          direction: "left",
+          pad: { t: 30, r: 10 },
+          buttons: [
+            {
+              label: "▶ Play",
+              method: "animate",
+              args: [
+                null,
+                {
+                  fromcurrent: true,
+                  frame: { duration: 500, redraw: true },
+                  transition: { duration: 0 }
+                }
+              ]
+            },
+            {
+              label: "⏸ Pause",
+              method: "animate",
+              args: [
+                [null],
+                {
+                  mode: "immediate",
+                  frame: { duration: 0, redraw: false },
+                  transition: { duration: 0 }
+                }
+              ]
+            }
+          ]
+        }
+      ];
+    }
+
+    const data = sismosTrace
+      ? [planoSurface, coneSurface, rosaLinhas, rosaTextos, sismosTrace, pico]
+      : [planoSurface, coneSurface, rosaLinhas, rosaTextos, pico];
+
+    const layout = {
+      title: {
+        text: "Sismos 3D – Serra de Santa Bárbara (cores por antiguidade)",
+        font: { color: "#eee", size: 16 }
+      },
+      paper_bgcolor: "#000",
+      plot_bgcolor: "#000",
+      scene: {
+        xaxis: {
+          title: "X (km)",
+          range: [-maxRange, maxRange],
+          gridcolor: "#333",
+          zerolinecolor: "#555",
+          backgroundcolor: "#000"
+        },
+        yaxis: {
+          title: "Y (km)",
+          range: [-maxRange, maxRange],
+          gridcolor: "#333",
+          zerolinecolor: "#555",
+          backgroundcolor: "#000"
+        },
+        zaxis: {
+          title: "Alt / Prof (km)",
+          range: [zMin, zMax],
+          gridcolor: "#333",
+          zerolinecolor: "#555",
+          backgroundcolor: "#000"
+        },
+        aspectmode: "manual",
+        aspectratio: { x: 1.6, y: 1.6, z: 0.8 }
+      },
+      margin: { l: 0, r: 0, t: 40, b: 0 },
+      showlegend: false,
+      sliders,
+      updatemenus
+    };
+
+    Plotly.newPlot("grafico", data, layout).then(gd => {
+      graficoPlotly = gd;
+
+      if (frames.length) {
+        Plotly.addFrames(gd, frames);
+      }
+
+      // hover → realçar item na lista
+      gd.on("plotly_hover", evt => {
+        const p = evt.points[0];
+        if (p && p.customdata !== undefined) {
+          destacarLista(p.customdata);
+        }
+      });
+
+      gd.on("plotly_unhover", () => {
+        removerDestaqueLista();
+      });
+
+      // fazer o sismo mais recente piscar
+      if (quakes.length) {
+        setTimeout(() => piscarMaisRecente(quakes), 800);
+      }
+    });
+  }
+
+  /* ============================================================
+     CARREGAR DADOS DO IPMA
+     ============================================================ */
+  async function carregar() {
+    try {
+      const resp = await fetch(API_URL);
+      const json = await resp.json();
+      const dados = json.data || [];
+
+      const agora = new Date();
+      const limite = new Date(agora.getTime() - 30 * 24 * 3600 * 1000);
+
+      const eventos = [];
+      let maisRecente = null;
+
+      for (const e of dados) {
+        try {
+          const t = new Date(e.time);
+          if (isNaN(t) || t < limite) continue;
+
+          const lat = +e.lat;
+          const lon = +e.lon;
+          const mag = +e.magnitud;
+          const depth = +e.depth;
+          const region = e.obsRegion || "";
+
+          if (!isSantaBarbara(region)) continue;
+          const dist = distanciaKm(lat, lon);
+          if (dist > RADIUS_KM) continue;
+
+          const { x, y } = geoToXY(lat, lon);
+
+          eventos.push({
+            time: t,
+            timeStr: t.toISOString().replace("T", " ").slice(0, 16),
+            lat,
+            lon,
+            mag,
+            depth_km: depth,
+            region,
+            dist_km: dist,
+            x,
+            y
+          });
+
+          if (!maisRecente || t > maisRecente) {
+            maisRecente = t;
+          }
+        } catch {
+          // ignora erros em eventos individuais
+        }
+      }
+
+      if (!eventos.length) {
+        construirLista([]);
+        desenharGrafico([]);
+        document.getElementById("ultima-atualizacao").textContent =
+          "Atualização: sem dados (IPMA)";
+        return;
+      }
+
+      // ordenar por antiguidade para calcular cores
+      eventos.sort((a, b) => a.time - b.time);
+      const tMin = eventos[0].time;
+      const tMax = eventos[eventos.length - 1].time;
+
+      eventos.forEach(ev => {
+        ev.color = corPorIdade(idadeNormalizada(ev.time, tMin, tMax));
+      });
+
+      // ordenar por mais recente primeiro (para a lista e piscar)
+      eventos.sort((a, b) => b.time - a.time);
+      eventos.forEach((ev, i) => {
+        ev.listIndex = i;
+      });
+
+      // atualizar info de última atualização
+      document.getElementById("ultima-atualizacao").textContent = maisRecente
+        ? `Atualização: ${maisRecente
+            .toISOString()
+            .replace("T", " ")
+            .slice(0, 16)} UTC`
+        : "Atualização: sem dados";
+
+      // construir UI
+      construirLista(eventos);
+      desenharGrafico(eventos);
+    } catch (err) {
+      console.error(err);
+      document.getElementById("lista-sismos").innerHTML =
+        "<li>Erro ao carregar dados do IPMA.</li>";
+      document.getElementById("ultima-atualizacao").textContent =
+        "Atualização: erro ao contactar IPMA";
+    }
+  }
+
+  carregar();
+
+  /* ============================================================
+     SERVICE WORKER (PWA)
+     ============================================================ */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .catch(err => console.warn("SW falhou:", err));
+    });
+  }
+</script>
+
+</body>
+</html>
