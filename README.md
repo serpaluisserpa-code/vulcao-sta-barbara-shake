@@ -52,8 +52,66 @@ vulcao-sta-barbara-shake/
 
 - A modern web browser with JavaScript enabled
 - Internet connection (for fetching data from IPMA API)
+- A local web server (required - cannot open HTML file directly due to CORS and service worker requirements)
 
-### Installation
+### Quick Start - Running Locally
+
+**⚠️ Important:** This application must be served via HTTP/HTTPS. Opening `index.html` directly in a browser will not work due to:
+- CORS restrictions when fetching data from IPMA API
+- Service Worker requirements (must be served over HTTP)
+
+#### Option 1: Python 3 (Recommended - Usually Pre-installed)
+
+```bash
+# Navigate to the project directory
+cd vulcao-sta-barbara-shake
+
+# Start a simple HTTP server
+python3 -m http.server 8000
+
+# Or if you have Python 2:
+python -m SimpleHTTPServer 8000
+```
+
+Then open: **http://localhost:8000**
+
+#### Option 2: Node.js (http-server)
+
+```bash
+# Install http-server globally (one time)
+npm install -g http-server
+
+# Or use npx (no installation needed)
+npx http-server -p 8000
+
+# Navigate to project directory first
+cd vulcao-sta-barbara-shake
+```
+
+Then open: **http://localhost:8000**
+
+#### Option 3: PHP
+
+```bash
+cd vulcao-sta-barbara-shake
+php -S localhost:8000
+```
+
+Then open: **http://localhost:8000**
+
+#### Option 4: VS Code Live Server Extension
+
+1. Install the "Live Server" extension in VS Code
+2. Right-click on `index.html`
+3. Select "Open with Live Server"
+
+#### Option 5: Other Options
+
+- **Ruby:** `ruby -run -e httpd . -p 8000`
+- **Docker:** Use any web server Docker image
+- **Any static file server** that serves files over HTTP
+
+### Installation (For Development)
 
 1. Clone or download this repository:
    ```bash
@@ -61,27 +119,17 @@ vulcao-sta-barbara-shake/
    cd vulcao-sta-barbara-shake
    ```
 
-2. Serve the files using a local web server. You can use:
-
-   **Python 3:**
-   ```bash
-   python3 -m http.server 8000
-   ```
-
-   **Node.js (http-server):**
-   ```bash
-   npx http-server -p 8000
-   ```
-
-   **PHP:**
-   ```bash
-   php -S localhost:8000
-   ```
+2. Choose one of the server options above and start the server
 
 3. Open your browser and navigate to:
    ```
    http://localhost:8000
    ```
+
+### Testing Different Versions
+
+- **Version 2.0 (Current):** `http://localhost:8000/index.html`
+- **Version 1.0 (Legacy):** `http://localhost:8000/index-v1.html`
 
 ### Installing as PWA
 

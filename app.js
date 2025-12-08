@@ -61,6 +61,7 @@ const i18n = {
     updateNoData: "Atualização: sem dados (IPMA)",
     filters: "Filtros",
     search: "Pesquisar",
+    searchPlaceholder: "Pesquisar sismos...",
     statistics: "Estatísticas",
     settings: "Configurações",
     magnitude: "Magnitude",
@@ -77,7 +78,42 @@ const i18n = {
     export: "Exportar",
     share: "Partilhar",
     help: "Ajuda",
-    about: "Sobre"
+    about: "Sobre",
+    aboutTitle: "Sobre a Aplicação",
+    aboutDescription: "Vulcão de Santa Barbara Shake é uma aplicação web dedicada à visualização tridimensional da atividade sísmica recente na região da Serra de Santa Bárbara, Ilha Terceira — Açores.",
+    aboutPurpose: "Esta ferramenta permite explorar, em 3D, a profundidade, magnitude e evolução temporal dos sismos registados pelo IPMA – Instituto Português do Mar e da Atmosfera, no seu período oficial de disponibilização (últimos 30 dias).",
+    aboutData: "Origem dos Dados",
+    aboutDataDesc: "Todos os eventos sísmicos são recolhidos a partir da API pública do IPMA.pt (Rede Sísmica Nacional / Açores). A aplicação não cria, altera ou interpreta dados sísmicos — limita-se a apresentá-los visualmente num sistema local tridimensional.",
+    aboutObjective: "Objetivo da Aplicação",
+    aboutObjectiveDesc: "Tornar a informação sísmica mais acessível ao público, permitindo compreender melhor o contexto geológico e vulcânico da serra de Sta. Bárbara, ilha Terceira, através de uma representação espacial intuitiva.",
+    aboutLegend: "Legenda e como interpretar",
+    aboutLegendDesc: "O quadro à direita corresponde à lista de eventos sísmicos registados. Os sismos são apresentados como pontos no gráfico tridimensional, vermelho mais antigo, amarelo entremédio e verde corresponde aos mais recentes. A barra inferior poderá reproduzir os eventos por ordem cronológica, do mais antigo ao mais recente.",
+    aboutCreation: "Criação",
+    aboutCreationDesc: "Desenvolvido por Luís Serpa (LSerpa), com apoio de modelos de Inteligência Artificial, a partir do Faial. Esta aplicação tem o apoio da VOST Portugal e VOSTAZ. A aplicação não substitui informação oficial do IPMA, CIVISA ou Proteção Civil.",
+    aboutContact: "Contacto",
+    aboutContactDesc: "Para sugestões, melhorias ou questões sobre o projeto:",
+    aboutContactEmail: "azores@vost.pt",
+    earthquakeList: "Lista de Sismos",
+    dataSource: "Fonte dos dados:",
+    localSystem: "Sistema local: X/Y (km), Z (km – negativo abaixo da superfície)",
+    lastDays: "Últimos {days} dias",
+    showVolcano: "Mostrar Vulcão",
+    showCompass: "Mostrar Bússola",
+    showSurface: "Mostrar Superfície",
+    highContrast: "Alto Contraste",
+    reducedMotion: "Movimento Reduzido",
+    language: "Idioma",
+    theme: "Tema",
+    dark: "Escuro",
+    light: "Claro",
+    auto: "Automático",
+    surface: "Superfície",
+    shallow: "Raso <5km",
+    medium: "Médio 5-15km",
+    deep: "Profundo >15km",
+    collapse: "Recolher",
+    expand: "Expandir",
+    close: "Fechar"
   },
   en: {
     title: "Earthquakes – Serra de Santa Bárbara",
@@ -89,6 +125,7 @@ const i18n = {
     updateNoData: "Update: no data (IPMA)",
     filters: "Filters",
     search: "Search",
+    searchPlaceholder: "Search earthquakes...",
     statistics: "Statistics",
     settings: "Settings",
     magnitude: "Magnitude",
@@ -105,7 +142,42 @@ const i18n = {
     export: "Export",
     share: "Share",
     help: "Help",
-    about: "About"
+    about: "About",
+    aboutTitle: "About the Application",
+    aboutDescription: "Vulcão de Santa Barbara Shake is a web application dedicated to the three-dimensional visualization of recent seismic activity in the Serra de Santa Bárbara region, Terceira Island — Azores.",
+    aboutPurpose: "This tool allows you to explore, in 3D, the depth, magnitude and temporal evolution of earthquakes recorded by IPMA – Portuguese Institute for Sea and Atmosphere, in its official availability period (last 30 days).",
+    aboutData: "Data Source",
+    aboutDataDesc: "All seismic events are collected from the public API of IPMA.pt (National Seismic Network / Azores). The application does not create, modify or interpret seismic data — it only presents them visually in a local three-dimensional system.",
+    aboutObjective: "Application Objective",
+    aboutObjectiveDesc: "To make seismic information more accessible to the public, allowing a better understanding of the geological and volcanic context of Serra de Sta. Bárbara, Terceira Island, through an intuitive spatial representation.",
+    aboutLegend: "Legend and how to interpret",
+    aboutLegendDesc: "The panel on the right corresponds to the list of recorded seismic events. Earthquakes are presented as points in the three-dimensional graph, red for oldest, yellow for intermediate and green for the most recent. The bottom bar can play the events chronologically, from oldest to most recent.",
+    aboutCreation: "Creation",
+    aboutCreationDesc: "Developed by Luís Serpa (LSerpa), with support from Artificial Intelligence models, from Faial. This application has the support of VOST Portugal and VOSTAZ. The application does not replace official information from IPMA, CIVISA or Civil Protection.",
+    aboutContact: "Contact",
+    aboutContactDesc: "For suggestions, improvements or questions about the project:",
+    aboutContactEmail: "azores@vost.pt",
+    earthquakeList: "Earthquake List",
+    dataSource: "Data source:",
+    localSystem: "Local system: X/Y (km), Z (km – negative below surface)",
+    lastDays: "Last {days} days",
+    showVolcano: "Show Volcano",
+    showCompass: "Show Compass",
+    showSurface: "Show Surface",
+    highContrast: "High Contrast",
+    reducedMotion: "Reduced Motion",
+    language: "Language",
+    theme: "Theme",
+    dark: "Dark",
+    light: "Light",
+    auto: "Auto",
+    surface: "Surface",
+    shallow: "Shallow <5km",
+    medium: "Medium 5-15km",
+    deep: "Deep >15km",
+    collapse: "Collapse",
+    expand: "Expand",
+    close: "Close"
   },
   es: {
     title: "Terremotos – Serra de Santa Bárbara",
@@ -117,6 +189,7 @@ const i18n = {
     updateNoData: "Actualización: sin datos (IPMA)",
     filters: "Filtros",
     search: "Buscar",
+    searchPlaceholder: "Buscar terremotos...",
     statistics: "Estadísticas",
     settings: "Configuración",
     magnitude: "Magnitud",
@@ -133,7 +206,42 @@ const i18n = {
     export: "Exportar",
     share: "Compartir",
     help: "Ayuda",
-    about: "Acerca de"
+    about: "Acerca de",
+    aboutTitle: "Acerca de la Aplicación",
+    aboutDescription: "Vulcão de Santa Barbara Shake es una aplicación web dedicada a la visualización tridimensional de la actividad sísmica reciente en la región de Serra de Santa Bárbara, Isla Terceira — Azores.",
+    aboutPurpose: "Esta herramienta permite explorar, en 3D, la profundidad, magnitud y evolución temporal de los terremotos registrados por el IPMA – Instituto Portugués del Mar y la Atmósfera, en su período oficial de disponibilidad (últimos 30 días).",
+    aboutData: "Origen de los Datos",
+    aboutDataDesc: "Todos los eventos sísmicos se recopilan de la API pública de IPMA.pt (Red Sísmica Nacional / Azores). La aplicación no crea, modifica o interpreta datos sísmicos — solo los presenta visualmente en un sistema local tridimensional.",
+    aboutObjective: "Objetivo de la Aplicación",
+    aboutObjectiveDesc: "Hacer la información sísmica más accesible al público, permitiendo comprender mejor el contexto geológico y volcánico de la serra de Sta. Bárbara, isla Terceira, a través de una representación espacial intuitiva.",
+    aboutLegend: "Leyenda y cómo interpretar",
+    aboutLegendDesc: "El panel a la derecha corresponde a la lista de eventos sísmicos registrados. Los terremotos se presentan como puntos en el gráfico tridimensional, rojo más antiguo, amarillo intermedio y verde corresponde a los más recientes. La barra inferior puede reproducir los eventos en orden cronológico, del más antiguo al más reciente.",
+    aboutCreation: "Creación",
+    aboutCreationDesc: "Desarrollado por Luís Serpa (LSerpa), con apoyo de modelos de Inteligencia Artificial, desde Faial. Esta aplicación cuenta con el apoyo de VOST Portugal y VOSTAZ. La aplicación no sustituye información oficial del IPMA, CIVISA o Protección Civil.",
+    aboutContact: "Contacto",
+    aboutContactDesc: "Para sugerencias, mejoras o preguntas sobre el proyecto:",
+    aboutContactEmail: "azores@vost.pt",
+    earthquakeList: "Lista de Terremotos",
+    dataSource: "Fuente de los datos:",
+    localSystem: "Sistema local: X/Y (km), Z (km – negativo debajo de la superficie)",
+    lastDays: "Últimos {days} días",
+    showVolcano: "Mostrar Volcán",
+    showCompass: "Mostrar Brújula",
+    showSurface: "Mostrar Superficie",
+    highContrast: "Alto Contraste",
+    reducedMotion: "Movimiento Reducido",
+    language: "Idioma",
+    theme: "Tema",
+    dark: "Oscuro",
+    light: "Claro",
+    auto: "Automático",
+    surface: "Superficie",
+    shallow: "Superficial <5km",
+    medium: "Medio 5-15km",
+    deep: "Profundo >15km",
+    collapse: "Colapsar",
+    expand: "Expandir",
+    close: "Cerrar"
   }
 };
 
@@ -1140,6 +1248,14 @@ function applySettings() {
   // Apply theme
   if (AppState.settings.theme === 'light') {
     document.body.classList.add('light-theme');
+  } else if (AppState.settings.theme === 'auto') {
+    // Check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.body.classList.remove('light-theme');
+    } else {
+      document.body.classList.add('light-theme');
+    }
   } else {
     document.body.classList.remove('light-theme');
   }
@@ -1176,10 +1292,30 @@ function updateUIText() {
     });
   }
   
-  // Update panel headers
-  document.querySelectorAll('.panel-header h3').forEach(el => {
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    if (key) el.textContent = t(key);
+    if (key) {
+      const params = el.dataset.i18nParams ? JSON.parse(el.dataset.i18nParams) : {};
+      el.textContent = t(key, params);
+    }
+  });
+  
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (key) {
+      el.placeholder = t(key);
+    }
+  });
+  
+  // Update select options
+  document.querySelectorAll('select option[data-i18n]').forEach(option => {
+    const key = option.dataset.i18n;
+    if (key) {
+      const params = option.dataset.i18nParams ? JSON.parse(option.dataset.i18nParams) : {};
+      option.textContent = t(key, params);
+    }
   });
 }
 
@@ -1218,6 +1354,14 @@ function setupEventListeners() {
   if (sidebarToggle) {
     sidebarToggle.addEventListener('click', () => {
       sidebar.classList.toggle('collapsed');
+      // Update button text/icon
+      if (sidebar.classList.contains('collapsed')) {
+        sidebarToggle.textContent = '▶';
+        sidebarToggle.setAttribute('aria-label', t('expand'));
+      } else {
+        sidebarToggle.textContent = '◀';
+        sidebarToggle.setAttribute('aria-label', t('collapse'));
+      }
     });
   }
   
@@ -1289,6 +1433,18 @@ function setupFilterUI() {
     });
   }
   
+  // Depth filter
+  const depthMin = document.getElementById('filter-depth-min');
+  const depthMax = document.getElementById('filter-depth-max');
+  const depthValue = document.getElementById('filter-depth-value');
+  
+  function updateDepthDisplay() {
+    if (depthValue) {
+      depthValue.textContent = `${AppState.filters.depthMin.toFixed(1)} - ${AppState.filters.depthMax.toFixed(1)} km`;
+    }
+    applyFilters();
+  }
+  
   // Quick magnitude buttons
   document.querySelectorAll('.filter-quick-btn[data-mag]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1325,18 +1481,6 @@ function setupFilterUI() {
       updateFilterUI();
     });
   });
-  
-  // Depth filter
-  const depthMin = document.getElementById('filter-depth-min');
-  const depthMax = document.getElementById('filter-depth-max');
-  const depthValue = document.getElementById('filter-depth-value');
-  
-  function updateDepthDisplay() {
-    if (depthValue) {
-      depthValue.textContent = `${AppState.filters.depthMin.toFixed(1)} - ${AppState.filters.depthMax.toFixed(1)} km`;
-    }
-    applyFilters();
-  }
   
   if (depthMin) {
     depthMin.addEventListener('input', (e) => {
@@ -1432,6 +1576,15 @@ function setupSettingsUI() {
       AppState.settings.theme = e.target.value;
       saveSettings();
     });
+    
+    // Listen for system theme changes if auto is selected
+    if (AppState.settings.theme === 'auto') {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (AppState.settings.theme === 'auto') {
+          applySettings();
+        }
+      });
+    }
   }
   
   // Initialize toggle switches
@@ -1470,8 +1623,50 @@ if (document.readyState === 'loading') {
   init();
 }
 
+// ============================================================
+// ABOUT MODAL
+// ============================================================
+function showAbout() {
+  const modal = document.getElementById('about-modal');
+  if (modal) {
+    modal.classList.add('active');
+    updateUIText(); // Update translations in modal
+  }
+}
+
+function closeAbout() {
+  const modal = document.getElementById('about-modal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
+
+// Close modal on overlay click
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('about-modal');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeAbout();
+      }
+    });
+  }
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('about-modal');
+      if (modal && modal.classList.contains('active')) {
+        closeAbout();
+      }
+    }
+  });
+});
+
 // Export functions for use in HTML
 window.exportData = exportData;
 window.shareView = shareView;
 window.clearFilters = clearFilters;
+window.showAbout = showAbout;
+window.closeAbout = closeAbout;
 
