@@ -34,9 +34,9 @@
         <button id="sidebar-toggle" aria-label="Collapse sidebar" title="Collapse sidebar">◀</button>
       </div>
 
-      <!-- VOSTAZ Logo -->
+      <!-- IPMA Logo -->
       <div class="sidebar-logo-section">
-        <img src="VOSTAZ_f.png" alt="VOSTAZ" style="height: 120px; opacity: 0.9;" />
+        <img src="ipma-logo.png" alt="IPMA" />
         <small>Dados sísmicos fornecidos pela Rede Sísmica Nacional – IPMA.pt</small>
       </div>
 
@@ -55,7 +55,6 @@
         <input 
           type="text" 
           id="search-input" 
-          data-i18n-placeholder="searchPlaceholder"
           placeholder="Pesquisar sismos..." 
           aria-label="Search earthquakes"
         />
@@ -70,7 +69,7 @@
         <div class="panel-content">
           <!-- Magnitude Filter -->
           <div class="filter-group">
-            <label class="filter-label" for="filter-mag-min" data-i18n="magnitude">Magnitude</label>
+            <label class="filter-label" for="filter-mag-min">Magnitude</label>
             <input 
               type="range" 
               id="filter-mag-min" 
@@ -102,7 +101,7 @@
 
           <!-- Depth Filter -->
           <div class="filter-group">
-            <label class="filter-label" for="filter-depth-min" data-i18n="depth">Profundidade (km)</label>
+            <label class="filter-label" for="filter-depth-min">Profundidade (km)</label>
             <input 
               type="range" 
               id="filter-depth-min" 
@@ -125,28 +124,28 @@
             />
             <div class="filter-value" id="filter-depth-value">0.0 - 30.0 km</div>
             <div class="filter-quick-buttons">
-              <button class="filter-quick-btn" data-depth-type="surface" data-i18n="surface">Superfície</button>
-              <button class="filter-quick-btn" data-depth-type="shallow" data-i18n="shallow">Raso &lt;5km</button>
-              <button class="filter-quick-btn" data-depth-type="medium" data-i18n="medium">Médio 5-15km</button>
-              <button class="filter-quick-btn" data-depth-type="deep" data-i18n="deep">Profundo &gt;15km</button>
+              <button class="filter-quick-btn" data-depth-type="surface">Superfície</button>
+              <button class="filter-quick-btn" data-depth-type="shallow">Raso &lt;5km</button>
+              <button class="filter-quick-btn" data-depth-type="medium">Médio 5-15km</button>
+              <button class="filter-quick-btn" data-depth-type="deep">Profundo &gt;15km</button>
             </div>
           </div>
 
           <!-- Date Range Filter -->
           <div class="filter-group">
-            <label class="filter-label" for="filter-date-range" data-i18n="dateRange">Período</label>
+            <label class="filter-label" for="filter-date-range">Período</label>
             <select id="filter-date-range" class="setting-control" aria-label="Date range">
-              <option value="7" data-i18n="lastDays" data-i18n-params='{"days":7}'>Últimos 7 dias</option>
-              <option value="14" data-i18n="lastDays" data-i18n-params='{"days":14}'>Últimos 14 dias</option>
-              <option value="30" selected data-i18n="lastDays" data-i18n-params='{"days":30}'>Últimos 30 dias</option>
-              <option value="60" data-i18n="lastDays" data-i18n-params='{"days":60}'>Últimos 60 dias</option>
-              <option value="90" data-i18n="lastDays" data-i18n-params='{"days":90}'>Últimos 90 dias</option>
+              <option value="7">Últimos 7 dias</option>
+              <option value="14">Últimos 14 dias</option>
+              <option value="30" selected>Últimos 30 dias</option>
+              <option value="60">Últimos 60 dias</option>
+              <option value="90">Últimos 90 dias</option>
             </select>
           </div>
 
           <!-- Radius Filter -->
           <div class="filter-group">
-            <label class="filter-label" for="filter-radius" data-i18n="radius">Raio (km)</label>
+            <label class="filter-label" for="filter-radius">Raio (km)</label>
             <input 
               type="range" 
               id="filter-radius" 
@@ -160,7 +159,7 @@
             <div class="filter-value" id="filter-radius-value">30 km</div>
           </div>
 
-          <button id="clear-filters" class="btn" data-i18n="clearFilters">Limpar Filtros</button>
+          <button id="clear-filters" class="btn">Limpar Filtros</button>
         </div>
       </div>
 
@@ -184,7 +183,7 @@
         <div class="panel-content">
           <!-- Language -->
           <div class="setting-item">
-            <label class="setting-label" for="setting-language" data-i18n="language">Idioma</label>
+            <label class="setting-label" for="setting-language">Idioma</label>
             <select id="setting-language" class="setting-control">
               <option value="pt">Português</option>
               <option value="en">English</option>
@@ -194,32 +193,32 @@
 
           <!-- Theme -->
           <div class="setting-item">
-            <label class="setting-label" for="setting-theme" data-i18n="theme">Tema</label>
+            <label class="setting-label" for="setting-theme">Tema</label>
             <select id="setting-theme" class="setting-control">
-              <option value="dark" data-i18n="dark">Escuro</option>
-              <option value="light" data-i18n="light">Claro</option>
-              <option value="auto" data-i18n="auto">Automático</option>
+              <option value="dark">Escuro</option>
+              <option value="light">Claro</option>
+              <option value="auto">Automático</option>
             </select>
           </div>
 
           <!-- Visualization Settings -->
           <div class="setting-item">
             <div class="setting-toggle">
-              <label class="setting-label" data-i18n="showVolcano">Mostrar Vulcão</label>
+              <label class="setting-label">Mostrar Vulcão</label>
               <div class="toggle-switch active" data-setting="showVolcano" role="button" tabindex="0" aria-label="Toggle volcano display"></div>
             </div>
           </div>
 
           <div class="setting-item">
             <div class="setting-toggle">
-              <label class="setting-label" data-i18n="showCompass">Mostrar Bússola</label>
+              <label class="setting-label">Mostrar Bússola</label>
               <div class="toggle-switch active" data-setting="showCompass" role="button" tabindex="0" aria-label="Toggle compass display"></div>
             </div>
           </div>
 
           <div class="setting-item">
             <div class="setting-toggle">
-              <label class="setting-label" data-i18n="showSurface">Mostrar Superfície</label>
+              <label class="setting-label">Mostrar Superfície</label>
               <div class="toggle-switch active" data-setting="showSurface" role="button" tabindex="0" aria-label="Toggle surface display"></div>
             </div>
           </div>
@@ -227,14 +226,14 @@
           <!-- Accessibility -->
           <div class="setting-item">
             <div class="setting-toggle">
-              <label class="setting-label" data-i18n="highContrast">Alto Contraste</label>
+              <label class="setting-label">Alto Contraste</label>
               <div class="toggle-switch" data-setting="highContrast" role="button" tabindex="0" aria-label="Toggle high contrast"></div>
             </div>
           </div>
 
           <div class="setting-item">
             <div class="setting-toggle">
-              <label class="setting-label" data-i18n="reducedMotion">Movimento Reduzido</label>
+              <label class="setting-label">Movimento Reduzido</label>
               <div class="toggle-switch" data-setting="reducedMotion" role="button" tabindex="0" aria-label="Toggle reduced motion"></div>
             </div>
           </div>
@@ -255,22 +254,18 @@
       </div>
 
       <button class="btn" onclick="shareView()" style="width: 100%; margin-top: 10px;">
-        🔗 <span data-i18n="share">Partilhar</span>
-      </button>
-
-      <button class="btn" onclick="showAbout()" style="width: 100%; margin-top: 10px;">
-        ℹ️ <span data-i18n="about">Sobre</span>
+        🔗 Partilhar
       </button>
 
       <!-- Earthquake List -->
-      <h2 style="font-size: 14px; margin-top: 20px; margin-bottom: 10px;" data-i18n="earthquakeList">Lista de Sismos</h2>
+      <h2 style="font-size: 14px; margin-top: 20px; margin-bottom: 10px;">Lista de Sismos</h2>
       <ul id="lista-sismos">
         <li>Carregando dados do IPMA…</li>
       </ul>
 
       <div class="sidebar-footer">
-        <span data-i18n="dataSource">Fonte dos dados:</span> <strong>IPMA.pt</strong><br>
-        <span data-i18n="localSystem">Sistema local: X/Y (km), Z (km – negativo abaixo da superfície)</span>
+        Fonte dos dados: <strong>IPMA.pt</strong><br>
+        Sistema local: X/Y (km), Z (km – negativo abaixo da superfície)
       </div>
     </div>
 
@@ -278,7 +273,7 @@
     <div id="grafico-container">
       <div id="marca-logos">
         <img src="vost-portugal.png" class="marca-logo" alt="VOST Portugal">
-        <img src="ipma-logo.png" class="marca-logo" alt="IPMA">
+        <img src="VOSTAZ_f.png" class="marca-logo" alt="VOSTAZ">
       </div>
       <div id="grafico"></div>
     </div>
@@ -287,55 +282,10 @@
   <!-- Toast Container -->
   <div id="toast-container" class="toast-container"></div>
 
-  <!-- About Modal -->
-  <div id="about-modal" class="modal-overlay">
-    <div class="modal" style="max-width: 600px;">
-      <button class="modal-close" onclick="closeAbout()" aria-label="Close">×</button>
-      <h2 data-i18n="aboutTitle">Sobre a Aplicação</h2>
-      
-      <div style="text-align:center; margin: 20px 0;">
-        <img src="app-logo.png" alt="App Logo" style="height:70px; opacity:0.95;" />
-      </div>
-      
-      <p data-i18n="aboutDescription"></p>
-      <p data-i18n="aboutPurpose"></p>
-      
-      <h3 data-i18n="aboutData" style="margin-top: 30px;"></h3>
-      <div style="text-align:center; margin: 15px 0;">
-        <img src="ipma-logo.png" alt="IPMA" style="height:40px; opacity:0.9;" />
-      </div>
-      <p data-i18n="aboutDataDesc"></p>
-      
-      <h3 data-i18n="aboutObjective" style="margin-top: 30px;"></h3>
-      <p data-i18n="aboutObjectiveDesc"></p>
-      
-      <h3 data-i18n="aboutLegend" style="margin-top: 30px;"></h3>
-      <p data-i18n="aboutLegendDesc"></p>
-      
-      <h3 data-i18n="aboutCreation" style="margin-top: 30px;"></h3>
-      <p data-i18n="aboutCreationDesc"></p>
-      
-      <div style="text-align:center; margin: 20px 0;">
-        <img src="VOSTAZ-logo.png" alt="VOSTAZ" style="height:60px; margin: 10px; opacity:0.95;" />
-        <img src="vost-portugal.png" alt="VOST Portugal" style="height:60px; margin: 10px; opacity:0.95;" />
-      </div>
-      
-      <h3 data-i18n="aboutContact" style="margin-top: 30px;"></h3>
-      <p>
-        <span data-i18n="aboutContactDesc"></span><br>
-        📧 <a href="mailto:azores@vost.pt" data-i18n="aboutContactEmail">azores@vost.pt</a>
-      </p>
-      
-      <div style="text-align:center; margin-top: 30px;">
-        <button class="btn btn-primary" onclick="closeAbout()" data-i18n="close">Fechar</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <div class="footer-global">
     2025, Criado por Luís Serpa e melhorado por IA. Dados IPMA.PT. • 
-    <a href="#" onclick="showAbout(); return false;" data-i18n="about">Sobre</a>
+    <a href="about.html">Sobre</a>
   </div>
 
   <!-- Main Application Script -->
